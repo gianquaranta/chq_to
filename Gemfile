@@ -67,5 +67,4 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-gem 'jquery-rails'
-gem 'bootstrap'
+gem "tailwindcss-rails", "~> 2.0"
