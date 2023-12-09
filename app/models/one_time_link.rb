@@ -1,0 +1,2 @@
+class OneTimeLink < Link
+end

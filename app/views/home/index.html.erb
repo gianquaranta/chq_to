@@ -4,5 +4,13 @@
     </head>
     <body>
         <p><h1>Bueeeeenas</h2></p>
+        <% if user_signed_in? %>
+        <%= button_to "Sign Out", destroy_user_session_path, method: :delete%>
+        <%= link_to "Create Link", "/links/new" %>
+        <%= link_to "My Links", "/links" %>
+        <% else %>
+            <%= link_to "Sign In", new_user_session_path %>
+            <%= link_to "Sign Up", new_user_registration_path %>
+        <% end %>
     </body>
 </html>
