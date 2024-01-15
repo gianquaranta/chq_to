@@ -1,2 +1,2 @@
-class OneTimeLink < Link
+class PrivateLink < Link
 end

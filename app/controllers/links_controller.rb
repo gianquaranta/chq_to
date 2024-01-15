@@ -13,6 +13,7 @@ class LinksController < ApplicationController
   # GET /links/new
   def new
     @link = current_user.links.build
+    @link.user = current_user
   end
 
   # GET /links/1/edit
@@ -22,16 +23,13 @@ class LinksController < ApplicationController
   # POST /links or /links.json
   def create
     @link = Link.new(link_params)
+    @link.user = current_user
 
-    respond_to do |format|
       if @link.save
-        format.html { redirect_to link_url(@link), notice: "Link was successfully created." }
-        format.json { render :show, status: :created, location: @link }
+        redirect_to link_url(@link), notice: "Link was successfully created." 
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity 
       end
-    end
   end
 
   # PATCH/PUT /links/1 or /links/1.json
@@ -65,6 +63,6 @@ class LinksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def link_params
-      params.require(:link).permit(:slug, :url, :name)
+      params.require(:link).permit(:slug, :url, :name, :type, :expiration_date, :password)
     end
 end

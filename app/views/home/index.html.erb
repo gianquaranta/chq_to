@@ -3,11 +3,12 @@
     <head>
     </head>
     <body>
-        <p><h2>Bienvenido a Chq.to</h2></p><br>
+        <p><h2 class="text-3xl font-bold underline">Bienvenido a Chq.to</h2></p>
         <% if user_signed_in? %>
         <%= button_to "Sign Out", destroy_user_session_path, method: :delete%>
         <%= link_to "Create Link", "/links/new" %>
         <%= link_to "My Links", "/links" %>
+        <p class="text-lg text-black-500">Hello <%= current_user.id %>!</p>
         <% else %>
             <%= link_to "Sign In", new_user_session_path %>
             <%= link_to "Sign Up", new_user_registration_path %>

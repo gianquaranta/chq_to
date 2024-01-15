@@ -1,4 +1,4 @@
-<%= form_with(model: link, class: "contents") do |form| %>
+<%= form_for(@link, url: links_path, html: { class: "mt-4" }) do |form| %>
   <% if link.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :slug %>
-    <%= form.text_field :slug, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -22,11 +22,62 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :type %>
+    <%= form.select :type, [['Regular', 'RegularLink'], ['Temporal', 'TemporalLink'], ['One Time', 'OneTimeLink'], ['Private', 'PrivateLink']],
+                   { prompt: 'Select Link Type' }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "link_type" } %>
   </div>
+
+  <div class="my-5" id="expiration_date_field" style="display:none">
+    <%= form.label :expiration_date %>
+    <%= form.date_field :expiration_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5" id="password_field" style="display:none">
+    <%= form.label :password %>
+    <%= form.password_field :password, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Ocultar campos al cargar la página
+    toggleFields();
+  
+    // Escuchar cambios en el campo de tipo
+    $('#link_type').on('change', function () {
+      toggleFields();
+    });
+  
+    function toggleFields() {
+      // Obtener el valor seleccionado del campo de tipo
+      var selectedType = $('#link_type').val();
+  
+      // Mostrar u ocultar campos basados en el tipo seleccionado
+      if (selectedType === 'TemporalLink') {
+        $('#expiration_date_field').show();
+        $('#expiration_date_field input').prop('disabled', false);
+      } else {
+        $('#expiration_date_field').hide();
+        $('#expiration_date_field input').prop('disabled', true);
+      }
+  
+      if (selectedType === 'PrivateLink') {
+        $('#password_field').show();
+        $('#password_field input').prop('disabled', false);
+      } else {
+        $('#password_field').hide();
+        $('#password_field input').prop('disabled', true);
+      }
+    }
+  
+    // Llamamos a la función una vez al cargar la página para asegurarnos de que los campos estén configurados correctamente
+    toggleFields();
+  });
+  
+</script>
