@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_08_221718) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_18_192318) do
   create_table "links", force: :cascade do |t|
     t.string "slug", null: false
     t.string "url", null: false
     t.string "name"
     t.string "type", null: false
-    t.string "password"
     t.datetime "expiration_date"
     t.boolean "accessed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.string "password_digest"
     t.index ["user_id"], name: "index_links_on_user_id"
   end
 

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "/l/:slug", to: "links#redirect_to_original", as: "redirect_to_original"
-  post "/l/passwd/:slug", to: "links#verify_password"
+  post "/l/passwd/:slug", to: "links#check_password_link"
 
   # Defines the root path route ("/")
   root "home#index"
