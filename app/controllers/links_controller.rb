@@ -22,6 +22,7 @@ class LinksController < ApplicationController
 
   # POST /links or /links.json
   def create
+    #params p
     @link = Link.new(link_params)
     @link.user = current_user
 
@@ -32,27 +33,20 @@ class LinksController < ApplicationController
       end
   end
 
-  # PATCH/PUT /links/1 or /links/1.json
+  # PATCH/PUT /link/1 or 
   def update
-    respond_to do |format|
+
       if @link.update(link_params)
-        format.html { redirect_to link_url(@link), notice: "Link was successfully updated." }
-        format.json { render :show, status: :ok, location: @link }
+        redirect_to link_url(@link), notice: "Link was successfully updated."
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+        render :edit, status: :unprocessable_entity
       end
-    end
   end
 
   # DELETE /links/1 or /links/1.json
   def destroy
     @link.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to links_url, notice: "Link was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to links_url, notice: "Link was successfully destroyed."
   end
 
   # GET /link/slug
@@ -66,8 +60,8 @@ class LinksController < ApplicationController
       #Access.create(link_id: @link.id, ip_address: request.remote_ip)
       redirect_to original_url, allow_other_host: true
     else
-      flash[:error] = res[:message]
-      render file: "#{Rails.root}/public/#{res[:status]}.html", layout: false
+      flash.now[:error] = res[:message]
+      render "links/show"
     end
   end
 

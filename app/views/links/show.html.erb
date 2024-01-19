@@ -1,6 +1,6 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <% if @error_message %>
-    <p class="text-red-500 font-semibold mb-5"><%= @error_message %></p>
+  <% if flash[:error].present? %>
+    <p class="py-2 px-4 bg-red-50 text-red-500 font-medium rounded-md mb-4"><%= flash[:error] %></p>
   <% end %>
 
   <div class="max-w-md mx-auto bg-white rounded-md overflow-hidden shadow-md">
@@ -53,7 +53,7 @@
     <div class="flex justify-end p-6 space-x-2">
       <%= link_to "Redirect", redirect_to_original_url(@link.slug), class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium" %>
       <%= link_to "Edit", edit_link_path(@link), class: "rounded-lg py-3 px-5 bg-gray-100 text-gray-800 font-medium" %>
-      <%= link_to "Destroy", link_path(@link), method: :delete, data: { confirm: "Are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-700 text-gray-800 font-medium" %>
+      <%= button_to "Destroy", link_path(@link), method: :delete, class: "rounded-lg py-3 px-5 bg-red-700 text-gray-800 font-medium", id: "destroy-link" %>
     </div>
 
     <div class="flex justify-end p-6">
@@ -61,5 +61,17 @@
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const destroyButton = document.getElementById('destroy-link');
+
+  destroyButton.addEventListener('click', function (event) {
+    if (!confirm("Are you sure?")) {
+      event.preventDefault();
+    }
+  });
+});
+</script>
 
 
