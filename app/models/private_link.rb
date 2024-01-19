@@ -1,15 +1,13 @@
 class PrivateLink < Link
-    has_secure_password # Esto requiere que tengas el gem 'bcrypt' en tu Gemfile
-
-  # Otros validaciones y relaciones
+    has_secure_password 
 
   validates :password, presence: true
 
-  def redirect
-    if !@link.authenticate(params[:password])
-        {success: false, message: "The password is incorrect. Please try again."}
+  def redirect(password)
+    if !authenticate(password)
+      { success: false, message: "The password is incorrect. Please try again." }
     else
-        {success: true}
+      { success: true }
     end
   end
 

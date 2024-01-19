@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "/l/:slug", to: "links#redirect_to_original", as: "redirect_to_original"
-  post "/l/passwd/:slug", to: "links#check_password_link"
+  get "/link/:slug", to: "links#redirect_to_original", as: "redirect_to_original"
+  post "/link/password/:slug", to: "links#check_password_link", as: "check_password_link"
 
   # Defines the root path route ("/")
   root "home#index"

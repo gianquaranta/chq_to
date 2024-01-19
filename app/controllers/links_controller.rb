@@ -55,7 +55,7 @@ class LinksController < ApplicationController
     end
   end
 
-  # GET /l/slug
+  # GET /link/slug
   def redirect_to_original
     if @link.type == "PrivateLink"
       render "links/form_password" and return
@@ -71,13 +71,14 @@ class LinksController < ApplicationController
     end
   end
 
-  # POST /links/r/passwd/slug
+  # POST /link/password/slug
   def check_password_link
     res = @link.redirect(params[:password])
-
+  
     if res[:success]
+      original_url = @link.url.start_with?('http://', 'https://') ? @link.url : "http://#{@link.url}"
       #Access.create(link_id: @link.id, ip_address: request.remote_ip)
-      redirect_to @link.url, allow_other_host: true
+      redirect_to original_url, allow_other_host: true
     else
       flash.now[:error] = res[:message]
       render "links/form_password"
