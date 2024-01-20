@@ -10,14 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_18_192318) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_19_213816) do
+  create_table "link_accesses", force: :cascade do |t|
+    t.string "ip"
+    t.integer "link_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link_id"], name: "index_link_accesses_on_link_id"
+  end
+
   create_table "links", force: :cascade do |t|
     t.string "slug", null: false
     t.string "url", null: false
     t.string "name"
     t.string "type", null: false
     t.datetime "expiration_date"
-    t.boolean "accessed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
@@ -39,5 +46,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_18_192318) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "link_accesses", "links"
   add_foreign_key "links", "users"
 end

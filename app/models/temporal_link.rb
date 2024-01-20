@@ -5,7 +5,7 @@ class TemporalLink < Link
     if DateTime.current <= self.expiration_date
       { success: true }
     else
-      { success: false, message: 'The link has expired, it can not be accessed' }
+      { success: false, status: 404, message: 'The link has expired, it can not be accessed' }
     end
   end
 

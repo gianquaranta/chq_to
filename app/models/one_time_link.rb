@@ -1,5 +1,12 @@
 class OneTimeLink < Link
 
-def redirect
-
-end
+    def redirect
+      if LinkAccess.exists?(link_id: self.id)
+        { success: false, status: 403 }
+      else
+        { success: true }
+      end
+    end
+    
+  end
+  

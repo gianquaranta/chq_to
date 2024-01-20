@@ -3,6 +3,14 @@ require 'securerandom'
 class Link < ApplicationRecord
     belongs_to :user
     before_create :create_slug
+    has_many :link_accesses
+
+    validates :type, presence: true
+    validates :url, presence: true, format: {
+      with: /\A(?:http[s]?:\/\/)?(?:www\.)?[\S]+\.[\S]+\z/,
+      message: "is not recognized as a valid URL"
+    }
+
 
   def temporal?
     type == 'TemporalLink'
@@ -19,7 +27,7 @@ class Link < ApplicationRecord
   private 
 
   def create_slug
-    self.slug = SecureRandom.uuid[0..7]
+    self.slug = SecureRandom.hex(4)
   end
 
 end

@@ -29,7 +29,7 @@ class LinksController < ApplicationController
       if @link.save
         redirect_to link_url(@link), notice: "Link was successfully created." 
       else
-        render :new, status: :unprocessable_entity 
+        render :edit, status: :unprocessable_entity 
       end
   end
 
@@ -57,11 +57,11 @@ class LinksController < ApplicationController
     res = @link.redirect
     if res[:success]
       original_url = @link.url.start_with?('http://', 'https://') ? @link.url : "http://#{@link.url}"
-      #Access.create(link_id: @link.id, ip_address: request.remote_ip)
+      LinkAccess.create(link_id: @link.id, ip: request.remote_ip)
       redirect_to original_url, allow_other_host: true
     else
       flash.now[:error] = res[:message]
-      render "links/show"
+      render file: "#{Rails.root}/public/#{res[:status]}.html", layout: false
     end
   end
 
@@ -71,7 +71,7 @@ class LinksController < ApplicationController
   
     if res[:success]
       original_url = @link.url.start_with?('http://', 'https://') ? @link.url : "http://#{@link.url}"
-      #Access.create(link_id: @link.id, ip_address: request.remote_ip)
+      LinkAccess.create(link_id: @link.id, ip: request.remote_ip)
       redirect_to original_url, allow_other_host: true
     else
       flash.now[:error] = res[:message]
