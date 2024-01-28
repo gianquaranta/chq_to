@@ -1,0 +1,26 @@
+
+<div class="container mx-auto mt-8">
+  <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
+    <h1 class="text-3xl font-semibold mb-4">User Profile</h1>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+        Username:
+      </label>
+      <p class="text-gray-800 text-lg" id="username"><%= current_user.username %></p>
+    </div>
+
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+        Email:
+      </label>
+      <p class="text-gray-800 text-lg" id="email"><%= current_user.email %></p>
+    </div>
+
+
+    <div class="mt-8">
+      <%= link_to "Edit Account", edit_user_registration_path(current_user), class: "bg-blue-500 text-black py-2 px-4 rounded-md" %>
+      <%= button_to "Cancel my account", registration_path(current_user), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    </div>
+  </div>
+</div>

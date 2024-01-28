@@ -3,7 +3,7 @@ require 'securerandom'
 class Link < ApplicationRecord
     belongs_to :user
     before_create :create_slug
-    has_many :link_accesses
+    has_many :link_accesses, dependent: :destroy
 
     validates :type, presence: true
     validates :url, presence: true, format: {

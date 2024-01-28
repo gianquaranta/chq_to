@@ -1,5 +1,7 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: %i[ show edit update destroy redirect_to_original check_password_link ]
+  before_action :authenticate_user!, except: [ :redirect_to_original, :check_password_link ]
+  before_action :set_link, only: [ :show, :edit, :update, :destroy, :redirect_to_original, :check_password_link ]
+  before_action :same_user, only: [ :show, :edit, :update, :destroy ]
 
   # GET /links or /links.json
   def index
@@ -29,13 +31,12 @@ class LinksController < ApplicationController
       if @link.save
         redirect_to link_url(@link), notice: "Link was successfully created." 
       else
-        render :edit, status: :unprocessable_entity 
+        render :new, status: :unprocessable_entity 
       end
   end
 
   # PATCH/PUT /link/1 or 
   def update
-
       if @link.update(link_params)
         redirect_to link_url(@link), notice: "Link was successfully updated."
       else
@@ -92,6 +93,15 @@ class LinksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def link_params
-      params.require(:link).permit(:slug, :url, :name, :type, :expiration_date, :password)
+      if params[:link]
+        params.require(:link).permit(:slug, :url, :name, :type, :expiration_date, :password, :ip)
+      end
     end
+
+    def same_user
+      if @link.user != current_user
+        render file: "#{Rails.root}/public/403.html", layout: false
+      end
+    end
+
 end

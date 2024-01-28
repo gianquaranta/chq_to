@@ -1,15 +1,4 @@
 <%= form_for(@link, url: links_path, html: { class: "mt-4" }, local: true) do |form| %>
-  <% if link.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
-
-      <ul>
-        <% link.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="my-5">
     <%= form.label :name %>
@@ -24,7 +13,7 @@
   <div class="my-5">
     <%= form.label :type %>
     <%= form.select :type, [['Regular', 'RegularLink'], ['Temporal', 'TemporalLink'], ['One Time', 'OneTimeLink'], ['Private', 'PrivateLink']],
-                   { prompt: 'Select Link Type' }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "link_type" } %>
+               { prompt: 'Select Link Type' }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "link_type" } %>
   </div>
 
   <div class="my-5" id="expiration_date_field" style="display:none">
@@ -40,7 +29,8 @@
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium", value: "Create Link" %>
+
   </div>
 <% end %>
 
