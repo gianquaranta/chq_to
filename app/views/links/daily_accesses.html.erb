@@ -1,0 +1,23 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Link Details</h1>
+
+  <!-- Aquí muestras la información del link, por ejemplo, nombre y URL -->
+
+  <h2 class="font-bold text-2xl mt-8 mb-4">Accesses by Day</h2>
+
+  <% if @accesses_by_day.present? %>
+    <ul>
+      <% @accesses_by_day.each do |date, accesses| %>
+        <li class="mb-4">
+          <span class="font-bold">Date:</span> <%= date %><br>
+          <span class="font-bold">Accesses:</span> <%= accesses.count %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No accesses recorded yet.</p>
+  <% end %>
+
+  <%= link_to "Back to Link", link_path(@link), class: "mt-8 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+</div>

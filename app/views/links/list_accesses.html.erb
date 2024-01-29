@@ -1,0 +1,17 @@
+<!-- app/views/links/link_access_details.html.erb -->
+
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Access Details</h1>
+
+  <!-- Mostrar detalles de accesos -->
+  <% @accesses.each do |access| %>
+    <div class="mt-4 border border-gray-300 p-4 rounded-md">
+      <p>Accessed at: <%= access.created_at %></p>
+      <p>Accessed by IP: <%= access.ip %></p>
+      <!-- Agrega más detalles según tus necesidades -->
+    </div>
+  <% end %>
+
+  <!-- Botón para volver al detalle del enlace -->
+  <%= link_to "Back to Link Details", link_path(@link), class: "mt-4 rounded-lg py-3 px-5 bg-blue-500 text-white inline-block font-medium" %>
+</div>

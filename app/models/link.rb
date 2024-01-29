@@ -11,7 +11,10 @@ class Link < ApplicationRecord
       message: "is not recognized as a valid URL"
     }
 
-
+    def accesses_by_day
+      link_accesses.group_by { |access| access.created_at.to_date }
+    end
+  
   def temporal?
     type == 'TemporalLink'
   end

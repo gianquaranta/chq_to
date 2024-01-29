@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   before_action :authenticate_user!, except: [ :redirect_to_original, :check_password_link ]
-  before_action :set_link, only: [ :show, :edit, :update, :destroy, :redirect_to_original, :check_password_link ]
+  before_action :set_link, only: [ :show, :edit, :update, :destroy, :redirect_to_original, :check_password_link, :daily_accesses, :list_accesses ]
   before_action :same_user, only: [ :show, :edit, :update, :destroy ]
 
   # GET /links or /links.json
@@ -78,6 +78,14 @@ class LinksController < ApplicationController
       flash.now[:error] = res[:message]
       render "links/form_password"
     end
+  end
+
+  def daily_accesses
+    @accesses_by_day = @link.link_accesses.group_by { |access| access.created_at.to_date }
+  end
+
+  def list_accesses
+    @accesses = @link.link_accesses
   end
 
 
