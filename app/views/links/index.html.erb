@@ -4,28 +4,41 @@
   <% end %>
 
   <div class="flex justify-between items-center mb-6">
-    <h1 class="font-bold text-4xl"> Your Links</h1>
+    <h1 class="font-bold text-4xl">Your Links</h1>
     <%= link_to "New link", new_link_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
-
-  <% @links.each do |link| %>
-    <div class="bg-white rounded-md overflow-hidden shadow-md mb-6 p-6">
-      <p class="text-gray-700 font-semibold mb-2">Original URL:</p>
-      <p class="mb-6"><%= link.url %></p>
-
-      <p class="text-gray-700 font-semibold mb-2">Short URL:</p>
-      <p class="mb-6"><%= link.slug %></p>
-
-      <p class="text-gray-700 font-semibold mb-2">Type:</p>
-      <p class="mb-6"><%= link.type %></p>
-
-      <% if link.name.present? %>
-        <p class="text-gray-700 font-semibold mb-2">Name:</p>
-        <p class="mb-6"><%= link.name %></p>
-      <% end %>
-
-      <%= link_to "Details", link_path(link), class: "rounded-lg py-2 px-4 bg-gray-100 text-gray-800 font-medium hover:bg-gray-200" %>
-    </div>
-    <div class="border-b border-gray-200 mb-6">______</div>
+  <br/>
+  <% if @links.present? %>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300 rounded-md">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b">Original URL</th>
+          <th class="py-2 px-4 border-b">Short URL</th>
+          <th class="py-2 px-4 border-b">Type</th>
+          <th class="py-2 px-4 border-b">Name</th>
+          <th class="py-2 px-4 border-b"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @links.each do |link| %>
+          <tr>
+            <td class="py-2 px-4 border-b"><%= link.url %></td>
+            <td class="py-2 px-4 border-b"><%= link.slug %></td>
+            <td class="py-2 px-4 border-b"><%= link.type %></td>
+            <td class="py-2 px-4 border-b"><%= link.name.present? ? link.name : '-' %></td>
+            <td class="py-2 px-4 border-b">
+              <%= link_to "Details", link_path(link), class: "rounded-lg py-2 px-4 bg-gray-100 text-gray-800 font-medium hover:bg-gray-200" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <% else %>
+    <br/>
+    <h3 class="text-3xl">No links created yet!</h3>
+    <br/>
   <% end %>
+  <%= paginate @links %>
 </div>

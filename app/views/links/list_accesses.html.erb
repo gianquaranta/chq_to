@@ -1,17 +1,52 @@
-<!-- app/views/links/link_access_details.html.erb -->
-
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Access Details</h1>
 
-  <!-- Mostrar detalles de accesos -->
-  <% @accesses.each do |access| %>
-    <div class="mt-4 border border-gray-300 p-4 rounded-md">
-      <p>Accessed at: <%= access.created_at %></p>
-      <p>Accessed by IP: <%= access.ip %></p>
-      <!-- Agrega más detalles según tus necesidades -->
-    </div>
+  <% if flash[:error].present? %>
+    <p class="py-2 px-4 bg-red-50 text-red-500 font-medium rounded-md mb-4"><%= flash[:error] %></p>
   <% end %>
 
+  <% if notice.present? %>
+    <p class="py-2 px-4 bg-green-50 text-green-500 font-medium rounded-t-md mb-4"><%= notice %></p>
+  <% end %>
+
+  <h1 class="font-bold text-4xl mb-6">Access Details</h1>
+  <br/>
+
+  <%= form_tag(list_accesses_link_path(@link), method: :get, class: "mb-6") do %>
+    <div class="my-3">
+      <%= label_tag 'Start Date' %>
+      <%= text_field_tag 'start_date', params[:start_date], class: 'block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50' %>
+    </div>
+    <br/>
+    <div class="my-3">
+      <%= label_tag 'End Date' %>
+      <%= text_field_tag 'end_date', params[:end_date], class: 'block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50' %>
+    </div>
+    <br/>
+    <div class="my-3">
+      <%= label_tag 'IP Address' %>
+      <%= text_field_tag 'ip', params[:ip], class: 'block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50' %>
+    </div>
+    <br/>
+    <%= submit_tag 'Filter', class: 'bg-blue-600 text-white rounded-lg py-2 px-4 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800 font-medium' %>
+  <% end %>
+  <br/><br/>
+  <% if @accesses.present? %>
+    <% @accesses.each do |access| %>
+      <div class="mt-4 border border-gray-300 p-4 rounded-md">
+        <p class="text-gray-700 font-semibold">Accessed at:</p>
+        <p><%= access.created_at %></p>
+
+        <p class="text-gray-700 font-semibold mt-2">Accessed by IP:</p>
+        <p><%= access.ip %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="mt-4 text-gray-700">No accesses recorded yet.</p>
+  <% end %>
+
+  <!-- Mostrar paginación -->
+  <%= paginate @accesses %>
+
   <!-- Botón para volver al detalle del enlace -->
-  <%= link_to "Back to Link Details", link_path(@link), class: "mt-4 rounded-lg py-3 px-5 bg-blue-500 text-white inline-block font-medium" %>
+  <%= link_to "Back to Link Details", link_path(@link), class: "mt-6 rounded-lg py-3 px-5 bg-gray-100 text-gray-800 font-medium inline-block" %>
 </div>

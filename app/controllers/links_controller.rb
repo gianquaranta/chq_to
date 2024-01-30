@@ -6,6 +6,8 @@ class LinksController < ApplicationController
   # GET /links or /links.json
   def index
     @links = current_user.links
+    page_number = params[:page] || 1
+    @links = @links.page(page_number).per(5)
   end
 
   # GET /links/1 or /links/1.json
@@ -81,11 +83,28 @@ class LinksController < ApplicationController
   end
 
   def daily_accesses
-    @accesses_by_day = @link.link_accesses.group_by { |access| access.created_at.to_date }
+    accesses = @link.link_accesses.group_by { |access| access.created_at.to_date }
+    page_number = params[:page] || 1
+    @accesses_by_day = Kaminari.paginate_array(accesses.to_a).page(page_number).per(5) 
   end
 
   def list_accesses
     @accesses = @link.link_accesses
+
+    if params[:start_date].present? && params[:end_date].present?
+      start_date = Date.parse(params[:start_date])
+      end_date = Date.parse(params[:end_date])
+      if start_date > end_date
+        flash[:error] = 'Start date must be before end date.'
+        redirect_to access_details_path(@link)
+      else
+        @accesses = @accesses.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+      end
+    end
+
+    # Filtrar por dirección IP si el parámetro está presente
+    @accesses = @accesses.where(ip: params[:ip]) if params[:ip].present?
+    @accesses = @accesses.page(params[:page]).per(5) 
   end
 
 
@@ -102,7 +121,7 @@ class LinksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def link_params
       if params[:link]
-        params.require(:link).permit(:slug, :url, :name, :type, :expiration_date, :password, :ip)
+        params.require(:link).permit(:slug, :url, :name, :type, :expiration_date, :password, :ip, :page)
       end
     end
 

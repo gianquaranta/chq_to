@@ -1,8 +1,7 @@
-
 <div class="container mx-auto mt-8">
   <div class="max-w-md mx-auto bg-white p-8 border rounded-md shadow-md">
-    <h1 class="text-3xl font-semibold mb-4">User Profile</h1>
-
+    <h1 class="text-3xl font-semibold mb-4 text-center">User Profile</h1>
+    <br/>
     <div class="mb-4">
       <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
         Username:
@@ -16,11 +15,10 @@
       </label>
       <p class="text-gray-800 text-lg" id="email"><%= current_user.email %></p>
     </div>
-
-
-    <div class="mt-8">
-      <%= link_to "Edit Account", edit_user_registration_path(current_user), class: "bg-blue-500 text-black py-2 px-4 rounded-md" %>
-      <%= button_to "Cancel my account", registration_path(current_user), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <br/>
+    <div class="flex justify-center">
+      <%= link_to "Edit Account", edit_user_registration_path(current_user), class: "bg-blue-600 text-white py-2 px-4 rounded-md mr-4" %>
+      <%= button_to "Cancel my account", registration_path(current_user), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "bg-gray-100 text-black py-2 px-4 rounded-md" %>
     </div>
   </div>
 </div>

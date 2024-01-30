@@ -1,38 +1,38 @@
-<%= form_for(@link, url: links_path, html: { class: "mt-4" }, local: true) do |form| %>
+<%= form_for(@link, url: links_path, html: { class: "max-w-md mx-auto bg-white p-8 border rounded-md shadow-md mt-4" }, local: true) do |form| %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="mb-4">
+    <%= form.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :name, class: "block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :url %>
-    <%= form.text_field :url, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="mb-4">
+    <%= form.label :url, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :url, class: "block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :type %>
+  <div class="mb-4">
+    <%= form.label :type, class: "block text-gray-700 text-sm font-bold mb-2" %>
     <%= form.select :type, [['Regular', 'RegularLink'], ['Temporal', 'TemporalLink'], ['One Time', 'OneTimeLink'], ['Private', 'PrivateLink']],
-               { prompt: 'Select Link Type' }, { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", id: "link_type" } %>
+               { prompt: 'Select Link Type' }, { class: "block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50", id: "link_type" } %>
   </div>
 
-  <div class="my-5" id="expiration_date_field" style="display:none">
-    <%= form.label :expiration_date %>
-    <%= form.date_field :expiration_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="mb-4" id="expiration_date_field" style="display:none">
+    <%= form.label :expiration_date, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.date_field :expiration_date, class: "block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
   </div>
 
-  <div class="my-5" id="password_field" style="display:none">
-    <%= form.label :password %>
-    <%= form.password_field :password, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="mb-4" id="password_field" style="display:none">
+    <%= form.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.password_field :password, class: "block w-full px-3 py-2 mt-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
   </div>
 
   <%= form.hidden_field :user_id, value: current_user.id %>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium", value: "Create Link" %>
-
+  <br/>
+  <div class="mt-4">
+    <%= form.submit "Create Link", class: "bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" %>
   </div>
 <% end %>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
