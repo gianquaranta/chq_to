@@ -1,4 +1,15 @@
 <div class="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+
+  <% if flash[:error].present? %>
+    <p class="py-2 px-4 bg-red-50 text-red-500 font-medium rounded-md mb-4"><%= flash[:error] %></p>
+  <% end %>
+
+  <div class="bg-white rounded-md overflow-hidden shadow-md">
+
+  <% if notice.present? %>
+    <p class="py-2 px-4 bg-green-50 text-green-500 font-medium rounded-t-md"><%= notice %></p>
+  <% end %>
+
   <h2 class="text-2xl font-semibold mb-6">Log In</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
