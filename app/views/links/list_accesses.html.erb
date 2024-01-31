@@ -44,9 +44,7 @@
     <p class="mt-4 text-gray-700">No accesses recorded yet.</p>
   <% end %>
 
-  <!-- Mostrar paginación -->
   <%= paginate @accesses %>
 
-  <!-- Botón para volver al detalle del enlace -->
   <%= link_to "Back to Link Details", link_path(@link), class: "mt-6 rounded-lg py-3 px-5 bg-gray-100 text-gray-800 font-medium inline-block" %>
 </div>

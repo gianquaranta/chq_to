@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    #before_action :set_user, only: [:show]
     #before_action :authorize_user, only: [:show]
   
     def show
@@ -8,10 +7,6 @@ class UsersController < ApplicationController
     end
   
     private
-  
-    #def set_user
-    #  @user = User.find(params[:format])
-    #end
   
     def authorize_user
       if @user != current_user

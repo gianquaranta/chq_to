@@ -26,7 +26,6 @@ class LinksController < ApplicationController
 
   # POST /links or /links.json
   def create
-    #params p
     @link = Link.new(link_params)
     @link.user = current_user
 
@@ -102,14 +101,12 @@ class LinksController < ApplicationController
       end
     end
 
-    # Filtrar por dirección IP si el parámetro está presente
     @accesses = @accesses.where(ip: params[:ip]) if params[:ip].present?
     @accesses = @accesses.page(params[:page]).per(5) 
   end
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_link
       if params[:id]
         @link = Link.find(params[:id])
@@ -118,7 +115,6 @@ class LinksController < ApplicationController
       end
     end
 
-    # Only allow a list of trusted parameters through.
     def link_params
       if params[:link]
         params.require(:link).permit(:slug, :url, :name, :type, :expiration_date, :password, :ip, :page)
