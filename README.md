@@ -43,14 +43,14 @@
       No se puede modificar el tipo ni la URL ya que sería cambiar la esencia misma del link, en ese caso se debería eliminar
       ese y crear uno nuevo, ya no se trataría del link originado en un principio.
 - Accesos a Links:
-    - Se registra la IP y la fecha-hora y son estos lo parámetros por los que se puede filtrar.
+    - Se registra la IP y la fecha-hora y son estos los parámetros por los que se puede filtrar.
     - Se pensó en un principio en un apartado 'Estadísticas' pero se decidió que se acceda en los detalles de cada link
       a los reportes del mismo.
 - Consideraciones generales:
-    - Se utiliza Tailwind para todo el decorado de los templates, más bien simple y minimalista. No se aportó demasiada 
+    - Se utiliza Tailwind para todo el decorado de los templates, más bien simple y minimalista. No se prestó demasiada 
       atención al apartado estético. En un principio tuve problemas para instalar Bootstrap y por eso me decanté por esta opción.
     - Se utiliza Kaminari para el paginado ya que en un principio se usó 'will_paginate' pero al ser esta exclusiva para modelos,
-      no era suficiente para el paginado de 'Accesos por día', por lo que se cambió a Kamimnari.
+      no era suficiente para el paginado de 'Accesos por día', por lo que se cambió a Kaminari.
 
 
 ## Datos de la Base de Datos
