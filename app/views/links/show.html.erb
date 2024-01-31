@@ -52,13 +52,14 @@
       </div>
     </div>
     <br/>
-    <div class="flex justify-between p-6 space-x-2">
-      <%= link_to "Redirect", redirect_to_original_url(@link.slug), class: "flex-1 rounded-lg py-3 px-5 bg-blue-600 text-white font-medium mx-2" %>
-      <%= link_to "Accesses by Day", daily_accesses_link_path(@link), class: "flex-1 mt-4 rounded-lg py-3 px-5 bg-blue-600 text-white font-medium mx-2" %>
-      <%= link_to "Access Details", list_accesses_link_path(@link), class: "flex-1 mt-4 rounded-lg py-3 px-5 bg-blue-600 text-white font-medium mx-2" %>
-      <%= link_to "Edit", edit_link_path(@link), class: "flex-1 rounded-lg py-3 px-5 bg-gray-100 text-gray-800 font-medium mx-2" %>
-      <%= button_to "Destroy", link_path(@link), method: :delete, class: "flex-1 rounded-lg py-3 px-5 bg-gray-100 text- font-medium mx-2", id: "destroy-link" %>
+    <div class="flex justify-between p-6 space-x-2 items-center">
+      <%= link_to "Redirect", redirect_to_original_url(@link.slug), class: "flex-1 h-14 rounded-lg py-3 px-5 bg-blue-600 text-white font-medium mx-1" %>
+      <%= link_to "Accesses by Day", daily_accesses_link_path(@link), class: "flex-1 h-14 mt-4 rounded-lg py-3 px-5 bg-blue-600 text-white font-medium mx-1" %>
+      <%= link_to "Access Details", list_accesses_link_path(@link), class: "flex-1 h-14 mt-4 rounded-lg py-3 px-5 bg-blue-600 text-white font-medium mx-1" %>
+      <%= link_to "Edit", edit_link_path(@link), class: "flex-1 h-14 rounded-lg py-3 px-5 bg-gray-100 text-gray-800 font-medium mx-1" %>
+      <%= button_to "Destroy", link_path(@link), method: :delete, class: "flex-1 h-14 rounded-lg py-3 px-5 bg-gray-100 text-red-500 font-medium mx-1", id: "destroy-link" %>
     </div>
+
 
     <div class="p-6">
       <%= link_to "Back to links", links_path, class: "rounded-lg py-3 px-5 bg-gray-100 text-gray-800 font-medium w-full block" %>
